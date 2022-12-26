@@ -7,15 +7,15 @@ def is_multiple(num, base):
     return num % base == 0
 
 
-def compute(limit):
+def multiples_of_three_five(limit):
     sum_of_multiples = 0
 
     for num in range(limit):
-        if is_multiple(num, 3) and is_multiple(num, 5):
+        if is_multiple(num, 3) or is_multiple(num, 5):
             sum_of_multiples += num
 
     return sum_of_multiples
 
 
 if __name__ == '__main__':
-    print(compute(1000))
+    print(multiples_of_three_five(1000))
