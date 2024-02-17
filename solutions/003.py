@@ -37,7 +37,7 @@ def is_prime(n: int, div: int = None) -> bool:
 
 
 primes = []
-num: int = 600851475143
+num: int = 13195
 
 for x in range(num):
     if x == 0:
