@@ -6,6 +6,23 @@ from rich.text import Text
 from os import listdir
 from os.path import isfile, join
 
+console = Console()
+
+SOLUTIONS_PATH = './solutions'
+
+
+# gets the list of solutions file
+def get_solutions_list(path, with_ext=False) -> list[str]:
+    files_list = listdir(path)
+
+    def extension_remover(filename):
+        return filename.rsplit('.', 1)[0]
+
+    if with_ext:
+        return list(map(extension_remover, files_list))
+
+    return files_list
+
 
 def calculate_solved():
     mypath = './solutions'
@@ -20,8 +37,6 @@ def calculate_solved():
 
 def print_header():
     table = Table(show_header=False, box=box.ASCII)
-
-    console = Console()
 
     title = 'Project Euler'
 
@@ -38,6 +53,29 @@ def print_header():
     console.print(table)
 
 
+def exit_program():
+    console.print('\n\nProject Euler - \xa9 Azeem Mirza')
+
+
+def input_loop():
+    running = True
+    files = get_solutions_list(SOLUTIONS_PATH, True)
+
+    print(files)
+
+    while running == True:
+        input_str = input('\nEnter Program Name: ')
+
+        if input_str == 'end' or input_str == 'exit':
+            running = False
+            exit_program()
+        elif input_str in files:
+            print(input_str)
+        else:
+            print('Invalid input or no solution available')
+
+
 print_header()
+input_loop()
 
 
