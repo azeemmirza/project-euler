@@ -7,9 +7,8 @@ from os import listdir
 from os.path import isfile, join
 import subprocess
 
+SOLUTIONS_DIR = 'solutions'
 console = Console()
-
-SOLUTIONS_PATH = 'solutions'
 
 
 # gets the list of solutions file
@@ -36,41 +35,36 @@ def calculate_solved():
     return str(len(files))
 
 
-def print_header():
-    table = Table(show_header=False, box=box.ASCII)
+def exit_program():
+    console.print('\n\nProject Euler - \xa9 Azeem Mirza')
+    quit()
 
+
+def run_solution(name: str):
+    file_path = join(SOLUTIONS_DIR, name + '.py')
+    subprocess.run(['python', file_path])
+
+
+def main():
+    running = True
     title = 'PROJECT EULER'
+    files = get_solutions_list(SOLUTIONS_DIR, True)
 
-    f = pyfiglet.figlet_format(title, font='doom', width=500)
-    heading = Text(f, style='#767676')
+    table = Table(show_header=False, box=box.ASCII)
+    figlet = pyfiglet.figlet_format(title, font='doom', width=500)
+    heading = Text(figlet, style='#767676')
     author = Text('Solutions by AZEEM MIRZA', justify='center')
-    num_solved = Text('Solved: ' + calculate_solved(), justify='center')
 
+    num_solved = Text('Solved: ' + calculate_solved(), justify='center')
 
     table.add_row(heading)
     table.add_row(author)
     # table.add_row(num_solved)
 
+    # print main header and info
     console.print(table)
 
-
-def exit_program():
-    console.print('\n\nProject Euler - \xa9 Azeem Mirza')
-
-
-def run_solution(name: str):
-    file_path = join(SOLUTIONS_PATH, name + '.py')
-    subprocess.run(["python3", file_path])
-
-
-
-def input_loop():
-    running = True
-    files = get_solutions_list(SOLUTIONS_PATH, True)
-
-    print(files)
-
-    while running == True:
+    while running:
         input_str = input('\nEnter Program Name: ')
 
         if input_str == 'end' or input_str == 'exit':
@@ -80,13 +74,10 @@ def input_loop():
         elif input_str in files:
             print(input_str)
             run_solution(input_str)
-            
+
         else:
             print('Invalid input or no solution available')
 
 
-
-print_header()
-input_loop()
-
-
+# run program
+main()
