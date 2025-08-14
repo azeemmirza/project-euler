@@ -29,3 +29,42 @@ number = (
     "05886116467109405077541002256983155200055935729725"
     "71636269561882670428252483600823257530420752963450"
 )
+
+def solution():
+    maximum = 0
+    string_window = None
+    
+    for key, value in enumerate(number):
+        end_index = key + 13
+        
+        ad_digit = number[key: end_index]
+        
+        if len(ad_digit) < 13:
+            break
+        
+        if '0' in ad_digit:
+            continue
+        
+        product = None
+        
+        for s in ad_digit:
+            n = int(s)
+            
+            if product is None:
+                product = n
+            else:
+                product *= n
+        
+        print(f'{ad_digit} -> {product}')
+        
+        if maximum < product:
+            maximum = product
+            string_window = ad_digit
+    
+    
+    print('----------------------')
+    print(f'maximum product: {maximum}')
+    print(f'string window: {string_window}')
+
+
+solution()
